@@ -5,7 +5,7 @@ This library contains a Pytorch implementation of the Power Spherical distributi
 
 ## Dependencies
 
-* **python>=3.8**
+* **python>=3.9**
 * **pytorch>=1.5**: https://pytorch.org
 
 *Notice that older version could work but they were not tested.*
