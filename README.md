@@ -5,7 +5,7 @@ This library contains a Pytorch implementation of the Power Spherical distributi
 
 ## Dependencies
 
-* **python>=3.6**
+* **python>=3.8**
 * **pytorch>=1.5**: https://pytorch.org
 
 *Notice that older version could work but they were not tested.*
@@ -32,6 +32,7 @@ Please have a look into the [examples](https://github.com/nicola-decao/power_sph
 
 Here a minimal example that demonstrate differentiable sampling:
 ```python
+import torch
 from power_spherical import PowerSpherical
 p = PowerSpherical(
       loc=torch.tensor([0., 1.], requires_grad=True),

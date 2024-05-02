@@ -7,30 +7,30 @@ _EPS = 1e-7
 
 
 class _TTransform(torch.distributions.Transform):
-    
+
     domain = torch.distributions.constraints.real
     codomain = torch.distributions.constraints.real
-    
+
     def _call(self, x):
         t = x[..., 0].unsqueeze(-1)
         v = x[..., 1:]
-        return torch.cat((t, v * torch.sqrt(torch.clamp(1 - t ** 2, _EPS))), -1)
+        return torch.cat((t, v * torch.sqrt(torch.clamp(1 - t**2, _EPS))), -1)
 
     def _inverse(self, y):
         t = y[..., 0].unsqueeze(-1)
         v = y[..., 1:]
-        return torch.cat((t, v / torch.sqrt(torch.clamp(1 - t ** 2, _EPS))), -1)
+        return torch.cat((t, v / torch.sqrt(torch.clamp(1 - t**2, _EPS))), -1)
 
     def log_abs_det_jacobian(self, x, y):
         t = x[..., 0]
-        return ((x.shape[-1] - 3) / 2) * torch.log(torch.clamp(1 - t ** 2, _EPS))
+        return ((x.shape[-1] - 3) / 2) * torch.log(torch.clamp(1 - t**2, _EPS))
 
 
 class _HouseholderRotationTransform(torch.distributions.Transform):
-    
+
     domain = torch.distributions.constraints.real
     codomain = torch.distributions.constraints.real
-    
+
     def __init__(self, loc):
         super().__init__()
         self.loc = loc
@@ -58,7 +58,9 @@ class HypersphericalUniform(torch.distributions.Distribution):
     }
 
     def __init__(self, dim, device="cpu", dtype=torch.float32, validate_args=None):
-        self.dim = dim if isinstance(dim, torch.Tensor) else torch.tensor(dim, device=device)
+        self.dim = (
+            dim if isinstance(dim, torch.Tensor) else torch.tensor(dim, device=device)
+        )
         super().__init__(validate_args=validate_args)
         self.device, self.dtype = device, dtype
 
@@ -96,7 +98,11 @@ class MarginalTDistribution(torch.distributions.TransformedDistribution):
     has_rsample = True
 
     def __init__(self, dim, scale, validate_args=None):
-        self.dim = dim if isinstance(dim, torch.Tensor) else torch.tensor(dim, device=scale.device)
+        self.dim = (
+            dim
+            if isinstance(dim, torch.Tensor)
+            else torch.tensor(dim, device=scale.device)
+        )
         self.scale = scale
         super().__init__(
             torch.distributions.Beta(
@@ -104,7 +110,6 @@ class MarginalTDistribution(torch.distributions.TransformedDistribution):
             ),
             transforms=torch.distributions.AffineTransform(loc=-1, scale=2),
         )
-        
 
     def entropy(self):
         return self.base_dist.entropy() + math.log(2)
@@ -156,7 +161,13 @@ class PowerSpherical(torch.distributions.TransformedDistribution):
 
     def __init__(self, loc, scale, validate_args=None):
 
-        self.loc, self.scale, = loc, scale
+        (
+            self.loc,
+            self.scale,
+        ) = (
+            loc,
+            scale,
+        )
         super().__init__(
             _JointTSDistribution(
                 MarginalTDistribution(
@@ -169,9 +180,11 @@ class PowerSpherical(torch.distributions.TransformedDistribution):
                     validate_args=validate_args,
                 ),
             ),
-            [_TTransform(), _HouseholderRotationTransform(loc),],
+            [
+                _TTransform(),
+                _HouseholderRotationTransform(loc),
+            ],
         )
-        
 
     def log_prob(self, value):
         return self.log_normalizer() + self.scale * torch.log1p(
