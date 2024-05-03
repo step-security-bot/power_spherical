@@ -1,11 +1,12 @@
-name: Publish to PyPI
+name: Publish to TestPyPI
 on:
   release:
     types: [published]
 
+# TODO: https://github.com/marketplace/actions/publish-python-poetry-package
 jobs:
   pypi_release:
-    name: Builds Using Poetry and Publishes to PyPI
+    name: Builds Using Poetry and Publishes to TestPyPI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,6 +15,6 @@ jobs:
         run: curl -sSL https://install.python-poetry.org | python3 -
       - run: poetry install
       - run: poetry run pytest
-      - run: poetry config pypi-token.test-pypi "${{ secrets.PYPI_API_KEY }}"
+      - run: poetry config pypi-token.test-pypi "${{ secrets.TESTPYPI_API_KEY }}"
       - name: Publish package
         run: poetry publish --build -r test-pypi
