@@ -3,7 +3,7 @@ on:
   release:
     types: [published]
 
-# TODO: https://github.com/marketplace/actions/publish-python-poetry-package
+# TODO: https://github.com/marketplace/actions/publish-python-poetry-package ??? 
 jobs:
   pypi_release:
     name: Builds Using Poetry and Publishes to TestPyPI
@@ -16,5 +16,32 @@ jobs:
       - run: poetry install
       - run: poetry config repositories.test-pypi https://test.pypi.org/legacy/
       - run: poetry config pypi-token.test-pypi "${{ secrets.TESTPYPI_API_KEY }}"
+      - name: Build package
+        run: poetry build
+      - name: Sign the dists with Sigstore
+        uses: sigstore/gh-action-sigstore-python@v2.1.1
+        with:
+          inputs: >-
+            ./dist/*.tar.gz
+            ./dist/*.whl
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create
+          '${{ github.ref_name }}'
+          --repo '${{ github.repository }}'
+          --notes ""      
+      - name: Upload artifact signatures to GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        # Upload to GitHub Release using the `gh` CLI.
+        # `dist/` contains the built packages, and the
+        # sigstore-produced signatures and certificates.
+        run: >-
+          gh release upload
+          '${{ github.ref_name }}' dist/**
+          --repo '${{ github.repository }}'
+
       - name: Publish package
-        run: poetry publish --build -r test-pypi
+        run: poetry publish -r test-pypi
