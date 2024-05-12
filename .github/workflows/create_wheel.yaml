@@ -68,11 +68,12 @@ jobs:
         name: python-package-distributions
         path: dist/
     - name: Publish package
-      run: poetry publish -r test-pypi
-    # - name: Publish distribution to TestPyPI
-    #   uses: pypa/gh-action-pypi-publish@release/v1
-    #   with:
-    #     repository-url: https://test.pypi.org/legacy/
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 - 
+        poetry install
+        poetry config repositories.test-pypi https://test.pypi.org/legacy/
+        poetry config pypi-token.test-pypi "${{ secrets.TESTPYPI_API_KEY }}"
+        poetry publish -r test-pypi
 
   github-release:
     name: >-
