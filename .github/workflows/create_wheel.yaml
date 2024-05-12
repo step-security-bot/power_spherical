@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build:
-    name: Build distribution 📦
+    name: Build distribution 
     runs-on: ubuntu-latest
 
     steps:
@@ -13,14 +13,13 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: "3.x"
-    - name: Install pypa/build
+    - name: Install Poetry / Build Package
       run: >-
-        python3 -m
-        pip install
-        build
-        --user
-    - name: Build a binary wheel and a source tarball
-      run: python3 -m build
+        curl -sSL https://install.python-poetry.org | python3 - 
+        poetry install
+        poetry config repositories.test-pypi https://test.pypi.org/legacy/
+        poetry config pypi-token.test-pypi "${{ secrets.TESTPYPI_API_KEY }}"
+        poetry build
     - name: Store the distribution packages
       uses: actions/upload-artifact@v3
       with:
