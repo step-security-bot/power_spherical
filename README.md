@@ -1,16 +1,19 @@
 # The Power Spherical distribution
 
+## Fork
+*This fork was made to create a wheel for pypi (in the context of which the setup was also changed/updated to pyproject.toml and poetry).*
+
 ## Overview
 This library contains a Pytorch implementation of the Power Spherical distribution, as presented in [[1]](#citation)(https://arxiv.org/abs/2006.04437).
 
 ## Dependencies
 
 * **python>=3.9**
-* **pytorch>=1.5**: https://pytorch.org
+* **pytorch>=2.0**: https://pytorch.org
 
 *Notice that older version could work but they were not tested.*
 
-Optional dependency for [examples](https://github.com/nicola-decao/power_spherical/blob/master/example.ipynb) needed for plotting and numerical checks (again older version could work but they were not tested):
+Optional dependency for [examples](https://github.com/andife/power_spherical/blob/master/example.ipynb) needed for plotting and numerical checks (again older version could work but they were not tested):
 * **numpy>=1.18.1**: https://numpy.org
 * **matplotlib>=3.1.1**: https://matplotlib.org
 * **quadpy>=0.14.11**: https://pypi.org/project/quadpy
@@ -20,15 +23,15 @@ Optional dependency for [examples](https://github.com/nicola-decao/power_spheric
 To install, run
 
 ```bash
-python setup.py install
+pip install power-spherical
 ```
 
 ## Structure
-* [distributions](https://github.com/nicola-decao/power_spherical/blob/master/power_spherical/distributions.py): Pytorch implementation of the Power Spherical and hyperspherical Uniform distributions. Both inherit from `torch.distributions.Distribution`.
-* [examples](https://github.com/nicola-decao/power_spherical/blob/master/example.ipynb): Example code for using the library within a PyTorch project.
+* [distributions](https://github.com/andife/power_spherical/blob/master/power_spherical/distributions.py): Pytorch implementation of the Power Spherical and hyperspherical Uniform distributions. Both inherit from `torch.distributions.Distribution`.
+* [examples](https://github.com/andife/power_spherical/blob/master/example.ipynb): Example code for using the library within a PyTorch project.
 
 ## Usage
-Please have a look into the [examples](https://github.com/nicola-decao/power_spherical/blob/master/example.ipynb). We adapted our implementation to follow the structure of the [Pytorch probability distributions](https://pytorch.org/docs/stable/distributions.html).
+Please have a look into the [examples](https://github.com/andife/power_spherical/blob/master/example.ipynb). We adapted our implementation to follow the structure of the [Pytorch probability distributions](https://pytorch.org/docs/stable/distributions.html).
 
 Here a minimal example that demonstrate differentiable sampling:
 ```python
