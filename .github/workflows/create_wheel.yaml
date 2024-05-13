@@ -25,6 +25,9 @@ jobs:
         poetry config repositories.test-pypi https://test.pypi.org/legacy/
         poetry config pypi-token.test-pypi "${{ secrets.TESTPYPI_API_KEY }}"
         poetry build
+    - name: Publish 
+      if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
+      run: | 
         poetry publish -r test-pypi
     # Generate hashes used for provenance.
     - name: generate hash
@@ -57,7 +60,7 @@ jobs:
     name: >-
       Sign the Python distribution with Sigstore
       and upload them to GitHub Release
-    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushesx
+    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
     - build
 
