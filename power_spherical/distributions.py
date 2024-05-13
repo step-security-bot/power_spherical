@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Nicola De Cao
+#
+# SPDX-License-Identifier: MIT
+
 import math
 import torch
 from torch.distributions.kl import register_kl

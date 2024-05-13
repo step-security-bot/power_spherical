@@ -7,6 +7,8 @@ jobs:
     name: Build distribution 
     if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushesx
     runs-on: ubuntu-latest
+    outputs:
+      hash: ${{ steps.hash.outputs.hash }}
   
     permissions:
         id-token: write  # IMPORTANT: mandatory for trusted publishing
@@ -25,6 +27,10 @@ jobs:
         poetry config pypi-token.test-pypi "${{ secrets.TESTPYPI_API_KEY }}"
         poetry build
         poetry publish -r test-pypi
+    # Generate hashes used for provenance.
+    - name: generate hash
+      id: hash
+      run: cd dist && echo "hash=$(sha256sum * | base64 -w0)" >> $GITHUB_OUTPUT
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
       with:
@@ -41,7 +47,7 @@ jobs:
       contents: write  # https://github.com/slsa-framework/slsa-github-generator/issues/2044 :(
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.0.0
     with:
-      base64-subjects: "${{ needs.build.outputs.hashes }}"
+      base64-subjects: '${{ needs.build.outputs.hashes }}'
       upload-assets: false
       provenance-name: multiple.intoto.jsonl
 
@@ -71,8 +77,6 @@ jobs:
         inputs: >-
           ./dist/*.tar.gz
           ./dist/*.whl
-
-
   
     # - name: Create GitHub Release
     #   release is created by the ui.
@@ -84,5 +88,5 @@ jobs:
       # sigstore-produced signatures and certificates.
       run: >-
         gh release upload
-        '${{ github.ref_name }}' dist/**
+        '${{ github.ref_name }}' dist/** *.intoto.jsonl/*
         --repo '${{ github.repository }}'
