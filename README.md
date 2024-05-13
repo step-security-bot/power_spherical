@@ -1,5 +1,7 @@
 # The Power Spherical distribution
 
+[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
+
 ## Fork
 *This fork was made to create a wheel for pypi (in the context of which the setup was also changed/updated to pyproject.toml and poetry).*
 
