@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 Andreas Fehlner
+#
+# SPDX-License-Identifier: MIT
+
 [tool.poetry]
 name = "power-spherical"
 version = "0.2.17"

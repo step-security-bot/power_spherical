@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: Matthias Valvekens
+SPDX-FileCopyrightText: 2024 Andreas Fehlner
+
+SPDX-License-Identifier: MIT
+-->
 
 ## Release artifact authenticity
 *The page is heavily adapted from https://github.com/MatthiasValvekens/pyHanko/blob/master/docs/artifact-authenticity.rst*
@@ -44,7 +50,7 @@ are appropriate.
     export EXPECTED_VERSION=<version number goes here>
     export REPO=andife/power-spherical
     sigstore verify github \
-        --cert-identity "https://github.com/$REPO/.github/workflows/release.yml@refs/tags/v$EXPECTED_VERSION" \
+        --cert-identity "https://github.com/$REPO/.github/workflows/create_release.yml@refs/tags/v$EXPECTED_VERSION" \
         --ref "refs/tags/v$EXPECTED_VERSION" \
         --repo "$REPO" \
         power-spherical-$EXPECTED_VERSION-*.whl power-spherical-$EXPECTED_VERSION.tar.gz
