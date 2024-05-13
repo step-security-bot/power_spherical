@@ -1,3 +1,7 @@
+# Copyright (c) Andreas Fehlner
+#
+# SPDX-License-Identifier: Apache-2.0
+
 name: Publish Python distribution to PyPI and TestPyPI
 
 on: push
