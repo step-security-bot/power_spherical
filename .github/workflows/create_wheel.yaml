@@ -7,7 +7,7 @@ jobs:
     name: Build distribution 
     runs-on: ubuntu-latest
     outputs:
-      hash: ${{ steps.hash.outputs.hash }}
+      hash: ${{ steps.hash.outputs.hashes }}
   
     permissions:
         id-token: write  # IMPORTANT: mandatory for trusted publishing
@@ -52,8 +52,7 @@ jobs:
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.0.0
     with:
       base64-subjects: '${{ needs.build.outputs.hashes }}'
-      upload-assets: false
-      provenance-name: multiple.intoto.jsonl
+      upload-assets: true      
 
 
   github-release:
