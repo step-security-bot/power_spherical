@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2020-2023 Nicola De Cao
+SPDX-FileCopyrightText: 2024 Andreas Fehlner
+
+SPDX-License-Identifier: MIT
+-->
+
 # The Power Spherical distribution
 
 [![REUSE compliant](https://api.reuse.software/badge/github.com/andife/power_spherical)](https://api.reuse.software/info/github.com/andife/power_spherical)
