@@ -31,6 +31,8 @@ jobs:
     - name: generate hash
       id: hash
       run: cd dist && echo "hash=$(sha256sum * | base64 -w0)" >> $GITHUB_OUTPUT
+    - name: Print variable
+      run: echo "Hash $GITHUB_OUTPUT"
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
       with:
