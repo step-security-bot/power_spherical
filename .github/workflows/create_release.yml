@@ -63,7 +63,6 @@ jobs:
     name: >-
       Sign the Python distribution with Sigstore
       and upload them to GitHub Release
-    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
     - build
 
@@ -85,10 +84,17 @@ jobs:
         inputs: >-
           ./dist/*.tar.gz
           ./dist/*.whl
+
+    - name: Rename files # to mach new file extension https://github.com/sigstore/sigstore-python/blob/main/CHANGELOG.md#changed
+      run: |
+        mv *whl.sigstore *whl.sigstore.json
+        mv *tar.gz.sigstore *tar.gz.sigstore.json
+
   
     # - name: Create GitHub Release
     #   release is created by the ui.
     - name: Upload artifact signatures to GitHub Release
+      if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
       env:
         GITHUB_TOKEN: ${{ github.token }}
       # Upload to GitHub Release using the `gh` CLI.
