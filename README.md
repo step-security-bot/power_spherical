@@ -74,6 +74,7 @@ Please cite [[1](#citation)] in your work when using this library in your experi
 
 ## Feedback
 For questions and comments, feel free to contact [Nicola De Cao](mailto:nicola.decao@gmail.com).
+For questions according to package / setup / fork, feel free to contact [Andreas Fehlner](mailto:fehlner@arcor.de)
 
 ## License
 MIT
