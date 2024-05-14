@@ -11,7 +11,7 @@ SPDX-License-Identifier: MIT
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
 
 ## Fork
-*This fork was made to create a wheel for pypi (in the context of which the setup was also changed/updated to pyproject.toml and poetry).*
+*This fork was made to create a wheel for pypi (in the context of which the setup was also changed/updated to pyproject.toml and poetry) and good practices in [supply chain security](https://github.com/andife/power_spherical/blob/master/artifact-authenticity.md), such as sigstore and slsa.*
 
 ## Overview
 This library contains a Pytorch implementation of the Power Spherical distribution, as presented in [[1]](#citation)(https://arxiv.org/abs/2006.04437).
