@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 # The Power Spherical distribution
 
-[![REUSE compliant](https://api.reuse.software/badge/github.com/andife/power_spherical)](https://api.reuse.software/info/github.com/andife/power_spherical)
+[![REUSE status](https://api.reuse.software/badge/github.com/andife/power_spherical/)](https://api.reuse.software/info/github.com/andife/power_spherical/)
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
 
 ## Fork
