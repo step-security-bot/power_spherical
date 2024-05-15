@@ -4,7 +4,7 @@
 
 [tool.poetry]
 name = "power-spherical"
-version = "0.2.17"
+version = "0.2.18"
 description = "Pytorch implementation of the Power Spherical distribution"
 authors = ["Nicola De Cao"]
 maintainers = [
