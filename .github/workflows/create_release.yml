@@ -87,7 +87,7 @@ jobs:
 
     - name: Rename files # to mach new file extension https://github.com/sigstore/sigstore-python/blob/main/CHANGELOG.md#changed
       run: |
-        apt-get install mmv 
+        sudo apt-get install mmv 
         mmv "./dist/*.sigstore" ./dist/#1.sigstore.json
   
     # - name: Create GitHub Release
