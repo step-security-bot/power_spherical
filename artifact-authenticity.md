@@ -38,9 +38,9 @@ are appropriate.
 
 #### Verifying Sigstore signatures issued through GitHub Actions OIDC ####
 
- #. Install ``sigstore``
- #. Download the ``.sigstore`` bundles from the GitHub release page
- #. Download the release artifacts you are interested in through whichever channel you prefer
+  * Install ``sigstore``
+  * Download the ``.sigstore.json`` bundles from the GitHub release page
+  * Download the release artifacts you are interested in through whichever channel you prefer
     (e.g. using ``pip wheel``, or manual download from GitHub/PyPI)
 
 .. code-block:: bash
@@ -86,11 +86,11 @@ The SLSA provenance data is also backed by Sigstore.
 power-spherical will include `SLSA provenance data <https://slsa.dev/>`_.
 To verify one or more power-spherical release artifacts, perform the following steps:
 
- #. Install ``slsa-verifier``
- #. Download the ``multiple.intoto.json`` provenance file from the GitHub release page
- #. Download the release artifacts you are interested in through whichever channel you prefer
+ * Install ``slsa-verifier``
+ * Download the ``multiple.intoto.json`` provenance file from the GitHub release page
+ * Download the release artifacts you are interested in through whichever channel you prefer
     (e.g. using ``pip wheel``, or manual download from GitHub/PyPI)
- #. Run the snippet below.
+ * Run the snippet below.
 
 
 .. code-block:: bash
