@@ -102,5 +102,9 @@ jobs:
       # sigstore-produced signatures and certificates.
       run: >-
         gh release upload
-        '${{ github.ref_name }}' dist/** *.intoto.jsonl/*
+        '${{ github.ref_name }}' dist/** 
         --repo '${{ github.repository }}'
+        
+        
+        
+      #*.intoto.jsonl/*
