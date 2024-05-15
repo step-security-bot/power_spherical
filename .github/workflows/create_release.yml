@@ -87,9 +87,8 @@ jobs:
 
     - name: Rename files # to mach new file extension https://github.com/sigstore/sigstore-python/blob/main/CHANGELOG.md#changed
       run: |
-        mv ./dist/*whl.sigstore ./dist/*whl.sigstore.json
-        mv ./dist/*tar.gz.sigstore ./dist/*tar.gz.sigstore.json
-
+        apt-get install mmv 
+        mmv "./dist/*.sigstore" ./dist/#1.sigstore.json
   
     # - name: Create GitHub Release
     #   release is created by the ui.
@@ -103,8 +102,5 @@ jobs:
       run: >-
         gh release upload
         '${{ github.ref_name }}' dist/** 
-        --repo '${{ github.repository }}'
+        --repo '${{ github.repository }}'                
         
-        
-        
-      #*.intoto.jsonl/*
