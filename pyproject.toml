@@ -30,7 +30,7 @@ python = "^3.9"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.2"
-torch
+torch = "^2.2"
 
 [tool.pytest]
 timeout = 300
