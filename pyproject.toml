@@ -30,12 +30,11 @@ python = "^3.9"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.2"
+torch
 
 [tool.pytest]
 timeout = 300
 testpaths = 'tests'
-
-
 
 [project.urls]
 Homepage = "https://github.com/andife/power_spherical"
