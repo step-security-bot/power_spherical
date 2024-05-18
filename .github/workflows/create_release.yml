@@ -27,6 +27,10 @@ jobs:
         curl -sSL https://install.python-poetry.org | python3 - 
         poetry install
         poetry build
+
+    - name: Test with pytest
+      run: poetry run pytest
+    
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
       with:
@@ -43,6 +47,7 @@ jobs:
     name: Publish to TestPyPI
     needs:
     - build
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     environment:
