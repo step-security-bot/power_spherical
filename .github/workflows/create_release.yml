@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-name: Publish Python distribution to PyPI #and TestPyPI
+name: Publish Python distribution to TestPyPI and PyPI
 
 on: push
 
@@ -39,8 +39,6 @@ jobs:
     - name: Print variable
       run: echo "Hash $GITHUB_OUTPUT"    
 
-  
-
   publish-to-testpypi:
     name: Publish to TestPyPI
     needs:
@@ -49,7 +47,7 @@ jobs:
 
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/power-spherical
+      url: https://pypi.org/p/power-spherical
 
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
@@ -60,7 +58,33 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
-    - name: Publish distribution to TestPyPI
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://pypi.org/legacy/
+
+
+  publish-to-pypi:
+    name: Publish to PyPI
+    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
+    needs:
+    - build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/power-spherical
+
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         repository-url: https://test.pypi.org/legacy/
