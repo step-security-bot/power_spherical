@@ -47,7 +47,7 @@ jobs:
 
     environment:
       name: testpypi
-      url: https://pypi.org/p/power-spherical
+      url: https://test.pypi.org/p/power-spherical
 
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
