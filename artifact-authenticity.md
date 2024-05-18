@@ -96,7 +96,7 @@ To verify one or more power-spherical release artifacts, perform the following s
 .. code-block:: bash
 
     export EXPECTED_VERSION=<version number goes here>
-    export REPO=andife/power-spherical
+    export REPO=andife/power_spherical
     slsa-verifier verify-artifact \
         --source-tag "v$EXPECTED_VERSION" \
         --provenance-path ./multiple.intoto.jsonl \
