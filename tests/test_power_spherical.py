@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 Bernd Doser
+#
+# SPDX-License-Identifier: MIT
+
 import sys
 
 import pytest

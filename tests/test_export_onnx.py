@@ -1,5 +1,5 @@
 import torch
-from distributions import HypersphericalUniform, MarginalTDistribution, PowerSpherical
+from power_spherical import HypersphericalUniform, MarginalTDistribution, PowerSpherical
 
 class PowerModel(torch.nn.Module):
     def __init__(self):
