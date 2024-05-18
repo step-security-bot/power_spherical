@@ -85,9 +85,7 @@ jobs:
         name: python-package-distributions
         path: dist/
     - name: Publish distribution to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        repository-url: https://pypi.org/legacy/
+      uses: pypa/gh-action-pypi-publish@release/v1      
 
   provenance:
     name: Generate SLSA provenance data
