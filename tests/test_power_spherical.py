@@ -7,6 +7,12 @@ import sys
 import pytest
 import torch
 from power_spherical import HypersphericalUniform, PowerSpherical
+import numpy as np
+import random
+
+np.random.seed(0)
+random.seed(0)
+torch.manual_seed(0)
 
 
 def test_power_spherical_2d():
