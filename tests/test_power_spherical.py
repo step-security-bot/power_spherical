@@ -10,10 +10,6 @@ from power_spherical import HypersphericalUniform, PowerSpherical
 import numpy as np
 import random
 
-np.random.seed(0)
-random.seed(0)
-torch.manual_seed(0)
-
 
 def test_power_spherical_2d():
     dist = PowerSpherical(torch.Tensor([0.0, 0.0]), torch.Tensor([1.0]))
@@ -65,8 +61,7 @@ def test_kl_divergence():
 
 
 @pytest.mark.xfail(
-    sys.version_info >= (3, 12),
-    reason="Python 3.12+ not yet supported for torch.compile",
+    reason="RuntimeError: Encountered autograd state manager op",
 )
 def test_dynamo_export_normal(tmp_path):
     class Model(torch.nn.Module):
