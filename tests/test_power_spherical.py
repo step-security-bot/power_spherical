@@ -1,4 +1,5 @@
 # SPDX-FileCopyrightText: 2024 Bernd Doser
+# SPDX-FileCopyrightText: 2024 Andreas Fehlner
 #
 # SPDX-License-Identifier: MIT
 
@@ -9,6 +10,7 @@ import torch
 from power_spherical import HypersphericalUniform, PowerSpherical
 import numpy as np
 import random
+import os
 
 
 def test_power_spherical_2d():
@@ -78,7 +80,7 @@ def test_dynamo_export_normal(tmp_path):
         exported_program,
         x,
     )
-    onnx_program.save(str(tmp_path / "normal.onnx"))
+    onnx_program.save(str(tmp_path + os.sep + "normal.onnx"))
 
 
 @pytest.mark.xfail(reason="not supported feature of ONNX")
@@ -99,3 +101,21 @@ def test_dynamo_export_spherical():
         exported_program,
         x,
     )
+
+# https://github.com/pytorch/pytorch/issues/116336
+@pytest.mark.xfail(reason="not supported feature of ONNX")
+def test_dynamo_export_power_spherical():
+    class PowerModel(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            batch_size = 32
+            cloc = torch.randn(batch_size, 3)
+            cscale = torch.ones(batch_size)
+            self.power_spherical = PowerSpherical(loc=cloc, scale=cscale)
+
+        def forward(self, x):
+            return self.power_spherical.rsample()
+
+
+    x = torch.randn(1)
+    exported_program = torch.export.export(PowerModel() , args=(x,))
