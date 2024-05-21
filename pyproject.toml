@@ -21,12 +21,21 @@ classifiers = [
 "Operating System :: OS Independent",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.2"
+torch = "^2.2"
+numpy = "^1.26.2"
+
+[tool.pytest]
+timeout = 300
+testpaths = 'tests'
 
 [project.urls]
 Homepage = "https://github.com/andife/power_spherical"
