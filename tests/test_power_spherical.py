@@ -62,9 +62,9 @@ def test_kl_divergence():
     )
 
 
-@pytest.mark.xfail(
-    reason="RuntimeError: Encountered autograd state manager op",
-)
+#@pytest.mark.xfail(
+#   reason="RuntimeError: Encountered autograd state manager op",
+#)
 def test_dynamo_export_normal(tmp_path):
     class Model(torch.nn.Module):
         def __init__(self):
@@ -120,7 +120,7 @@ def test_dynamo_export_power_spherical():
     x = torch.randn(1)
     exported_program = torch.export.export(PowerModel() , args=(x,))
 
-def test_dynamo_export_power_spherical_githubexample():
+def test_dynamo_export_power_spherical_githubexample(tmp_path):
     class PowerModel(torch.nn.Module):
         def __init__(self):
             super().__init__()
