@@ -41,7 +41,7 @@ jobs:
     - name: Test with pytorch nightly
       run: |
         poetry source add --priority explicit pytorch https://download.pytorch.org/whl/nightly/cpu
-        poetry add --source pytorch torch torchvision
+        poetry add --source pytorch torch torchvision onnxscript
         poetry run pytest -ra
 
     
