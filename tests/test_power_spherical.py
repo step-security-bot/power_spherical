@@ -80,7 +80,7 @@ def test_dynamo_export_normal(tmp_path):
         exported_program,
         x,
     )
-    onnx_program.save(str(tmp_path + os.sep + "normal.onnx"))
+    onnx_program.save(str(tmp_path) + os.sep + "normal.onnx")
 
 
 @pytest.mark.xfail(reason="not supported feature of ONNX")
@@ -134,3 +134,10 @@ def test_dynamo_export_power_spherical_githubexample():
 
 
     exported_program = torch.export.export(PowerModel() , args=(torch.randn(1),))
+    x = torch.randn(2, 3)
+
+    onnx_program = torch.onnx.dynamo_export(
+        exported_program,
+        x,
+    )
+    onnx_program.save(str(tmp_path) + os.sep + "normal.onnx")
