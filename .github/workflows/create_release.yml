@@ -35,8 +35,15 @@ jobs:
         poetry install
         poetry build
 
-    - name: Test with pytest
+    - name: Test with pytest (stable)
       run: poetry run pytest -ra
+
+    - name: Test with pytorch nightly
+      run: |
+        poetry source add --priority explicit pytorch https://download.pytorch.org/whl/nightly/cpu
+        poetry add --source pytorch torch torchvision
+        poetry run pytest -ra
+
     
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
