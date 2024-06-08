@@ -62,9 +62,6 @@ def test_kl_divergence():
     )
 
 
-#@pytest.mark.xfail(
-#   reason="RuntimeError: Encountered autograd state manager op",
-#)
 def test_dynamo_export_normal(tmp_path):
     class Model(torch.nn.Module):
         def __init__(self):
@@ -82,8 +79,46 @@ def test_dynamo_export_normal(tmp_path):
     )
     onnx_program.save(str(tmp_path) + os.sep + "normal.onnx")
 
+def test_dynamo_export_power_spherical_githubexample(tmp_path):
+    class PowerModel(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            batch_size = 32
+            cloc = torch.randn(batch_size, 3)
+            cscale = torch.ones(batch_size)
+            self.power_spherical = PowerSpherical(loc=cloc, scale=cscale)
 
-@pytest.mark.xfail(reason="not supported feature of ONNX")
+        def forward(self, x):
+            return self.power_spherical.rsample()
+
+
+    exported_program = torch.export.export(PowerModel() , args=(torch.randn(1),))
+    
+
+
+def test_dynamo_export_power_spherical_githubexample(tmp_path):
+    class PowerModel(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            batch_size = 32
+            cloc = torch.randn(batch_size, 3)
+            cscale = torch.ones(batch_size)
+            self.power_spherical = PowerSpherical(loc=cloc, scale=cscale)
+
+        def forward(self, x):
+            return self.power_spherical.rsample()
+
+
+    exported_program = torch.export.export(PowerModel() , args=(torch.randn(1),))
+    x = torch.randn(2, 3)
+
+    onnx_program = torch.onnx.dynamo_export(
+        exported_program,
+        x,
+    )
+    onnx_program.save(str(tmp_path) + os.sep + "normal.onnx")
+
+#@pytest.mark.xfail(reason="not supported feature of ONNX")
 def test_dynamo_export_spherical():
     class Model(torch.nn.Module):
         def __init__(self):
@@ -120,24 +155,3 @@ def test_dynamo_export_power_spherical():
     x = torch.randn(1)
     exported_program = torch.export.export(PowerModel() , args=(x,))
 
-def test_dynamo_export_power_spherical_githubexample(tmp_path):
-    class PowerModel(torch.nn.Module):
-        def __init__(self):
-            super().__init__()
-            batch_size = 32
-            cloc = torch.randn(batch_size, 3)
-            cscale = torch.ones(batch_size)
-            self.power_spherical = PowerSpherical(loc=cloc, scale=cscale)
-
-        def forward(self, x):
-            return self.power_spherical.rsample()
-
-
-    exported_program = torch.export.export(PowerModel() , args=(torch.randn(1),))
-    x = torch.randn(2, 3)
-
-    onnx_program = torch.onnx.dynamo_export(
-        exported_program,
-        x,
-    )
-    onnx_program.save(str(tmp_path) + os.sep + "normal.onnx")
