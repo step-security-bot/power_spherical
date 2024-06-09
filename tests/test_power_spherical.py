@@ -112,9 +112,13 @@ def test_dynamo_export_power_spherical_githubexample_onnx(tmp_path):
     exported_program = torch.export.export(PowerModel() , args=(torch.randn(1),))
     x = torch.randn(2, 3)
 
+
+    export_options = torch.onnx.ExportOptions(dynamic_shapes=True)
+
     onnx_program = torch.onnx.dynamo_export(
         exported_program,
         x,
+        export_options=export_options
     )
     onnx_program.save(str(tmp_path) + os.sep + "normal.onnx")
 
@@ -138,7 +142,7 @@ def test_dynamo_export_spherical():
     )
 
 # https://github.com/pytorch/pytorch/issues/116336
-@pytest.mark.xfail(reason="not supported feature of ONNX")
+#@pytest.mark.xfail(reason="not supported feature of ONNX")
 def test_dynamo_export_power_spherical():
     class PowerModel(torch.nn.Module):
         def __init__(self):
