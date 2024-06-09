@@ -96,7 +96,7 @@ def test_dynamo_export_power_spherical_githubexample(tmp_path):
     
 
 
-def test_dynamo_export_power_spherical_githubexample(tmp_path):
+def test_dynamo_export_power_spherical_githubexample_onnx(tmp_path):
     class PowerModel(torch.nn.Module):
         def __init__(self):
             super().__init__()
