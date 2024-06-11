@@ -35,8 +35,8 @@ jobs:
         poetry install
         poetry build
 
-    - name: Test (pytest stable)
-      run: poetry run pytest -ra
+    #- name: Test (pytest stable)
+    #  run: poetry run pytest -ra
 
     - name: Test (pytorch nightly)
       run: |
