@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-name: Publish Python distribution to TestPyPI and PyPI
+name: Pipeline including publishing
 
 on: 
   schedule:
@@ -35,15 +35,15 @@ jobs:
         poetry install
         poetry build
 
-    #- name: Test with pytest (stable)
-    #  run: poetry run pytest -ra
+    - name: Test (pytest stable)
+      run: poetry run pytest -ra
 
-    - name: Test with pytorch nightly
+    - name: Test (pytorch nightly)
       run: |
         poetry add onnxscript  
         poetry source add --priority explicit pytorch https://download.pytorch.org/whl/nightly/cpu
         poetry add --source pytorch torch torchvision        
-        poetry run pytest -ra
+        poetry run pytest -ravvv
 
     
     - name: Store the distribution packages
@@ -145,13 +145,13 @@ jobs:
           ./dist/*.tar.gz
           ./dist/*.whl
 
-    - name: Rename files # to mach new file extension https://github.com/sigstore/sigstore-python/blob/main/CHANGELOG.md#changed
+    - name: Rename files # to match new file extension https://github.com/sigstore/sigstore-python/blob/main/CHANGELOG.md#changed
       run: |
         sudo apt-get install mmv 
         mmv "./dist/*.sigstore" ./dist/#1.sigstore.json
   
     # - name: Create GitHub Release
-    #   release is created by the ui.
+    #   release is created by the UI
     - name: Upload artifact signatures to GitHub Release
       if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
       env:
