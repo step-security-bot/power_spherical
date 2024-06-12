@@ -32,7 +32,6 @@ python = "^3.9"
 pytest = "^8.0.2"
 torch = "^2.2"
 numpy = "^1.26.2"
-quadpy = "^0.17"
 
 [tool.pytest]
 timeout = 300
