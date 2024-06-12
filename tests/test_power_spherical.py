@@ -9,7 +9,7 @@ import sys
 
 import numpy as np
 import pytest
-import quadpy
+#import quadpy
 import torch
 from power_spherical import HypersphericalUniform, PowerSpherical
 
