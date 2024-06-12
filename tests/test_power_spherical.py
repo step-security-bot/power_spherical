@@ -3,15 +3,16 @@
 #
 # SPDX-License-Identifier: MIT
 
+import os
+import random
 import sys
 
+import numpy as np
 import pytest
+import quadpy
 import torch
 from power_spherical import HypersphericalUniform, PowerSpherical
-import numpy as np
-import random
-import os
-import quadpy
+
 
 def test_power_spherical_2d():
     dist = PowerSpherical(torch.Tensor([0.0, 0.0]), torch.Tensor([1.0]))
@@ -152,10 +153,10 @@ def test_quadpy():
     def f(x):
         return dist.log_prob(torch.tensor(x.T, dtype=torch.float32)).exp().detach().numpy()
 
-    np.isclose(
+    assert np.isclose(
         scheme.integrate(f, [0.] * d, radius=1),
         1,
-        atol=1e-2,
+        atol=1e-2)
 
 # # https://github.com/pytorch/pytorch/issues/116336
 # #@pytest.mark.xfail(reason="not supported feature of ONNX")
