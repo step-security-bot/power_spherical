@@ -40,9 +40,9 @@ jobs:
 
     - name: Test (pytorch nightly)
       run: |
-        poetry add onnxscript  
+        poetry add onnxscript torchvision 
         poetry source add --priority explicit pytorch https://download.pytorch.org/whl/nightly/cpu
-        poetry add --source pytorch torch torchvision        
+        poetry add --source pytorch torch        
         poetry run pytest -ravvv
 
     
@@ -51,6 +51,7 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
+
     # Generate hashes used for provenance.
     - name: generate hash
       id: hash
