@@ -26,7 +26,7 @@ This library contains a Pytorch implementation of the Power Spherical distributi
 Optional dependency for [examples](https://github.com/andife/power_spherical/blob/master/example.ipynb) needed for plotting and numerical checks (again older version could work but they were not tested):
 * **numpy>=1.18.1**: https://numpy.org
 * **matplotlib>=3.1.1**: https://matplotlib.org
-* **quadpy>=0.14.11**: https://pypi.org/project/quadpy
+* **quadpy>=0.14.11**: https://pypi.org/project/quadpy (a payed license is needed)
 
 ## Installation
 
@@ -71,7 +71,7 @@ torch.distributions.kl_divergence(p, q)
 
     tensor(1.2486, grad_fn=<AddBackward0>)
 
-Examples of 2D and 3D plots are show in [examples](https://github.com/nicola-decao/power_spherical/blob/master/example.ipynb) and will generate something similar to these figures below.
+Examples of 2D and 3D plots are show in [examples](https://github.com/andife/power_spherical/blob/master/example.ipynb) and will generate something similar to these figures below.
 <p align="center">
   <img class="paper_logo" src="https://i.imgur.com/4iITHS5.png" width=40%>
   <img class="paper_logo" src="https://i.imgur.com/zXZWr9H.png" width=40%>
