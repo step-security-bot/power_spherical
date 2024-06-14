@@ -9,7 +9,6 @@ import sys
 
 import numpy as np
 import pytest
-#import quadpy
 import torch
 from power_spherical import HypersphericalUniform, PowerSpherical
 
@@ -141,22 +140,6 @@ def test_dynamo_export_power_spherical():
         exported_program,
         x,
     )
-
-#def test_quadpy():
-#    d = 5
-#    loc = torch.tensor([1.] + [0.] * (d - 1))
-#    scale = torch.tensor(5.)
-#    dist = PowerSpherical(loc, scale)#
-#
-#    scheme = quadpy.nsphere.stroud_1969(d)
-#
-#    def f(x):
-#        return dist.log_prob(torch.tensor(x.T, dtype=torch.float32)).exp().detach().numpy()
-#
-#    assert np.isclose(
-#        scheme.integrate(f, [0.] * d, radius=1),
-#        1,
-#        atol=1e-2)
 
 # # https://github.com/pytorch/pytorch/issues/116336
 # #@pytest.mark.xfail(reason="not supported feature of ONNX")
